@@ -1,0 +1,11 @@
++ git config user.email meharnafis@gmail.com
++ git config user.name Mehar-Nafis
++ BUILD_NUMBER=6
++ echo 6
+6
++ grep -oP (?<=backend:)[^ ]+ deployment.yaml
++ imageTag=latest
++ echo latest
+latest
++ sed -i s/frontend:latest/frontend:6/ deployment.yaml
++ git add --all
