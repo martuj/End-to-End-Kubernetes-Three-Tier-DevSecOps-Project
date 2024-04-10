@@ -3,7 +3,7 @@ terraform {
     bucket         = "mehar-devsecops-bucket"
     region         = "us-east-2"
     key            = "End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/Jenkins-Server-TF/terraform.tfstate"
-    dynamodb_table = "Lock-Files"
+    dynamodb_table = "Mehar-DevSecOps-LockTable"
     encrypt        = true
   }
   required_version = ">=0.13.0"
