@@ -149,8 +149,40 @@ chmod 400 /home/ubuntu/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/Jenkin
 ssh -i /home/ubuntu/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/JenkinsServer-Prerequiste/devsecops-key ubuntu@<Public-Ip>
 ```
 
+## Step 4: Configure the Jenkins
+Now, we logged into our Jenkins server.
 
+We have installed some services such as Jenkins, Docker, Sonarqube, Terraform, Kubectl, AWS CLI, and Trivy.
 
-
-
-
+Let’s validate whether all our installed or not.
+```
+jenkins --version
+```
+```
+docker --version
+```
+```
+docker ps
+```
+```
+terraform --version
+```
+```
+kubectl version
+```
+```
+aws --version
+```
+```
+trivy --version
+```
+```
+eksctl --version
+```
+```
+Now, we have to configure Jenkins. So, copy the public IP of your Jenkins Server and paste it on your favorite browser with an 8080 port.
+* Click on Install suggested plugins
+* The plugins will be installed
+* After installing the plugins, continue as admin
+* Click on Save and Finish
+* Click on Start using Jenkins
