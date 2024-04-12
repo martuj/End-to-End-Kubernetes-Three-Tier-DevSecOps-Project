@@ -25,11 +25,11 @@ Before starting the project, ensure you have the following prerequisites:
 ## Step 2: Create a JumpServer and install Terraform & AWS CLI to deploy our Jenkins Server(EC2) on AWS.
 ### Task-1: Installing Terraform on Ubuntu 20.04 operating system
 
-* Manually Launch a `t2.micro` instance with OS version as `Ubuntu 22.04 LTS` in North Virginia (us-east-1) Region.
-* Use tag "`Name : TerraformServer`"
-* Create a new Keypair with the Name `Terraform-Keypair-YourName`
+* Manually Launch a `t2.micro` instance with OS version as `Ubuntu 22.04 LTS`.
+* Use tag "`Name : JumpServer`"
+* Create a new Keypair with the Name `JumpServer-Keypair`
 * In security groups, include ports `22 (SSH)` and `80 (HTTP)`.
-* Configure Storage: 10 GiB
+* Configure Storage: 8 GiB
 * Launch the Instance.
 * Once Launched, Connect to the Instance using `MobaXterm` or `Putty` or `EC2 Instance Connect` with username "`ubuntu`".
 
@@ -66,7 +66,7 @@ terraform
 terraform -v
 ```
 
-### Task-2: Install Required Packages and login to Ubuntu server using Credentials. 
+### Task-2: Install Required Packages. 
 ```
 sudo apt-get install python3-pip -y
 ```
@@ -88,4 +88,6 @@ Once LoggedIn check the account access
 aws s3 ls
 ```
 `Or` Use below command to check whether it is authenticated.
+```
+aws iam list-users
 ```
