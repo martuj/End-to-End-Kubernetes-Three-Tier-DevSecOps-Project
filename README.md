@@ -121,33 +121,32 @@ terraform plan
 ```
 terraform apply --auto-approve
 ```
-
-
-
-
-
-Now, you have to replace the Pem File name as you have some other name for your Pem file. To provide the Pem file name that is already created on AWS
-
-
+Once all the `5` resources are craeted navigate to the Jenkins-Server-TF
+```
+cd .. && cd Jenkins-Server-TF
+```
 Initialize the backend by running the below command
-
+```
 terraform init
-
+```
 Run the below command to check the syntax error
-
+```
 terraform validate
-
+```
 Run the below command to get the blueprint of what kind of AWS services will be created.
-
-terraform plan -var-file=variables.tfvars
-
+```
+terraform plan 
+```
 Now, run the below command to create the infrastructure on AWS Cloud which will take 3 to 4 minutes maximum
+```
+terraform apply 
+```
+Now, ssh into the created Jenkins Server. To get the Public IP of the instance execute the below command
+```
 
-terraform apply -var-file=variables.tfvars --auto-approve
-
-Now, connect to your Jenkins-Server by clicking on Connect.
 
 
-Copy the ssh command and paste it on your local machine.
+
+
 
 
