@@ -101,6 +101,7 @@ Now will we create the below resources
 * s3 bucket
 * dynamodb table
 * key-pair
+
 For this navigate to the JenkinsServer-Prerequiste
 ```
 cd End-to-End-Kubernetes-Three-Tier-DevSecOps-Project && cd cd JenkinsServer-Prerequiste
