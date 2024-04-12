@@ -5,7 +5,7 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
   read_capacity  = 5
 
   attribute {
-    name = "LockId"
+    name = "LockID"
     type = "S"
   }
  
