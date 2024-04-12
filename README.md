@@ -141,9 +141,13 @@ Now, run the below command to create the infrastructure on AWS Cloud which will 
 ```
 terraform apply 
 ```
-Now, ssh into the created Jenkins Server. To get the Public IP of the instance execute the below command
+Now, ssh into the created Jenkins Server(The Public IP of the Jenkins Server is printed on the console) 
 ```
-
+chmod 400 /home/ubuntu/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/JenkinsServer-Prerequiste/devsecops-key
+```
+```
+ssh -i /home/ubuntu/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/JenkinsServer-Prerequiste/devsecops-key ubuntu@<Public-Ip>
+```
 
 
 
