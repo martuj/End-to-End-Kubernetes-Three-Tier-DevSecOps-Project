@@ -1,5 +1,3 @@
-```hcl
-
 #Generating the Key pair
 resource "tls_private_key" "devsecops_key_pair" {
   algorithm = "RSA"
@@ -19,4 +17,3 @@ resource "local_file" "mykey_private" {
   filename = "devsecops-key"
 }
 
-```
