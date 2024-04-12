@@ -22,7 +22,7 @@ Before starting the project, ensure you have the following prerequisites:
 * Here, you will see that you got the credentials and also you can download the CSV file for the future.
 
 
-## Step 2: Create a JumpServer and install Terraform & AWS CLI to deploy our Jenkins Server(EC2) on AWS.
+## Step 2: Create a JumpServer and install Terraform & AWS CLI to deploy Jenkins Server on AWS.
 ### Task-1: Installing Terraform on Ubuntu 20.04 operating system
 
 * Manually Launch a `t2.micro` instance with OS version as `Ubuntu 22.04 LTS`.
