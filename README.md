@@ -91,3 +91,62 @@ aws s3 ls
 ```
 aws iam list-users
 ```
+
+## Step 3: Deploy the Jenkins Server(EC2) using Terraform
+Clone the Git repository
+```
+git clone https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project
+```
+Now will we create the below resources
+* s3 bucket
+* dynamodb table
+* key-pair
+For this navigate to the JenkinsServer-Prerequiste
+```
+cd End-to-End-Kubernetes-Three-Tier-DevSecOps-Project && cd cd JenkinsServer-Prerequiste
+```
+```
+terraform init
+```
+```
+terraform fmt
+```
+```
+terraform validate
+```
+```
+terraform plan
+```
+```
+terraform apply --auto-approve
+```
+
+
+
+
+
+Now, you have to replace the Pem File name as you have some other name for your Pem file. To provide the Pem file name that is already created on AWS
+
+
+Initialize the backend by running the below command
+
+terraform init
+
+Run the below command to check the syntax error
+
+terraform validate
+
+Run the below command to get the blueprint of what kind of AWS services will be created.
+
+terraform plan -var-file=variables.tfvars
+
+Now, run the below command to create the infrastructure on AWS Cloud which will take 3 to 4 minutes maximum
+
+terraform apply -var-file=variables.tfvars --auto-approve
+
+Now, connect to your Jenkins-Server by clicking on Connect.
+
+
+Copy the ssh command and paste it on your local machine.
+
+
