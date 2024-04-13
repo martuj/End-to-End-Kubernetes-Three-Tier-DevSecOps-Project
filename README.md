@@ -150,8 +150,11 @@ ssh -i /home/ubuntu/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/JenkinsSe
 ```
 
 ## Step 4: Configure the Jenkins
-Now, we logged into our Jenkins server.
-
+Now, we logged into our Jenkins server.Set the hostname
+```
+sudo hostnamectl set-hostname JenkinsServer
+bash
+```
 We have installed some services such as Jenkins, Docker, Sonarqube, Terraform, Kubectl, AWS CLI, and Trivy.
 
 Let’s validate whether all our installed or not.
