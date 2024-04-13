@@ -193,38 +193,31 @@ Now, we have to configure Jenkins. So, copy the public IP of your Jenkins Server
 ### Task 1: Configure the AWS.
 * Go to Manage Jenkins
 * Click on Plugins
-* Select the Available plugins , select the given plugins and click on Install. 
-** AWS Credentials
-** Pipeline: AWS Steps
+* Select the Available plugins , Search and select `AWS Credentials` and `Pipeline: AWS Steps` and click on Install. 
 * Once, both the plugins are installed, restart your Jenkins service by checking the Restart Jenkins option.
 * Login to your Jenkins Server Again
 
-### Task2: Set oAWS credentials on Jenkins
+### Task2: Set AWS credentials on Jenkins
 * Go to Manage Plugins and click on Credentials
 * Click on global.
-* Select `AWS Credentials` as Kind and add the ID same as shown in the below snippet except for your AWS Access Key & Secret Access key and click on Create.
+* Click on `Add Credentials`
+* Kind:  `AWS Credentials`
+* Scope: Global
+* ID: `aws-key`
+* Access Key: <Your-access-Key>
+* Secret Access key: <Your-secret-access-key> and click on Create.
+
+### Task3: Set GitHub credentials on Jenkins
+In Industry Projects your repository will always be private. So, add the username and personal access token of your GitHub account.
+* Kind:  `Username with password`
+* Scope: Global
+* Username: <Your-Github-Username>
+* Password: <Your-Github-token>
+* ID: github
+* Description: github
+* Click on Create.
 
 
-The Credentials will look like the below snippet.
 
-
-Now, We need to add GitHub credentials as well because currently, my repository is Private.
-
-This thing, I am performing this because in Industry Projects your repository will be private.
-
-So, add the username and personal access token of your GitHub account.
-
-
-Both credentials will look like this.
-
-
-Create an eks cluster using the below commands.
-
-eksctl create cluster --name Three-Tier-K8s-EKS-Cluster --region us-east-1 --node-type t2.medium --nodes-min 2 --nodes-max 2
-aws eks update-kubeconfig --region us-east-1 --name Three-Tier-K8s-EKS-Cluster
-
-Once your cluster is created, you can validate whether your nodes are ready or not by the below command
-
-kubectl get nodes
 
 
