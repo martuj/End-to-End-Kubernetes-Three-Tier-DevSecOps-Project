@@ -188,3 +188,43 @@ Now, we have to configure Jenkins. So, copy the public IP of your Jenkins Server
 * After installing the plugins, continue as `admin`
 * Click on `Save and Finish`
 * Click on Start using `Jenkins`
+
+## Step 5: Deploy the EKS Cluster.
+### Task 1: Configure the AWS.
+* Go to Manage Jenkins
+* Click on Plugins
+* Select the Available plugins , select the given plugins and click on Install. 
+** AWS Credentials
+** Pipeline: AWS Steps
+* Once, both the plugins are installed, restart your Jenkins service by checking the Restart Jenkins option.
+* Login to your Jenkins Server Again
+
+### Task2: Set oAWS credentials on Jenkins
+* Go to Manage Plugins and click on Credentials
+* Click on global.
+* Select `AWS Credentials` as Kind and add the ID same as shown in the below snippet except for your AWS Access Key & Secret Access key and click on Create.
+
+
+The Credentials will look like the below snippet.
+
+
+Now, We need to add GitHub credentials as well because currently, my repository is Private.
+
+This thing, I am performing this because in Industry Projects your repository will be private.
+
+So, add the username and personal access token of your GitHub account.
+
+
+Both credentials will look like this.
+
+
+Create an eks cluster using the below commands.
+
+eksctl create cluster --name Three-Tier-K8s-EKS-Cluster --region us-east-1 --node-type t2.medium --nodes-min 2 --nodes-max 2
+aws eks update-kubeconfig --region us-east-1 --name Three-Tier-K8s-EKS-Cluster
+
+Once your cluster is created, you can validate whether your nodes are ready or not by the below command
+
+kubectl get nodes
+
+
