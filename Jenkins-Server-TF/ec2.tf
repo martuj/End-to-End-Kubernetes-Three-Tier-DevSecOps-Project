@@ -15,8 +15,8 @@ resource "aws_instance" "ec2" {
   }
 
   provisioner "file" {
-    source      = "setup.sh"   # Source path of create.sh
-    destination = "/home/ubuntu/setupt.sh"  # Destination path on EC2 instance
+    source      = "EKSClusterSetup.sh"   # Source path of create.sh
+    destination = "/home/ubuntu/EKSClusterSetup.sh"  # Destination path on EC2 instance
   }
 
 #  provisioner "file" {
