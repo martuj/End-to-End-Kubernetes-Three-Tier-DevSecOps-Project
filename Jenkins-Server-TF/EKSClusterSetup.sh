@@ -104,7 +104,6 @@ fi
 # Step 3:  Update kubeconfig
 echo "Update kubeconfig"
 aws eks update-kubeconfig --region us-east-2 --name Three-Tier-K8s-EKS-Cluster
-echo "Step 3 completed"
 
 # Step 4: Download Load Balancer policy
 echo "Download Load Balancer policy"
