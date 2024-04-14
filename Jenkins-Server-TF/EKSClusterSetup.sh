@@ -210,5 +210,3 @@ echo "ArgoCD admin password: $ARGO_PWD"
 # End of script
 echo "Script execution completed."
 
-
-echo "Script execution completed."
