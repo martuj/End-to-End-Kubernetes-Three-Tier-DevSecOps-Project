@@ -53,43 +53,43 @@ create_cluster() {
 }
 
 # Function to check status
-check_status() {
-    local timeout=1800  # Timeout in seconds (30 minutes)
-    local start_time=$(date +%s)
-    local status_file="status.txt"
+# check_status() {
+#     local timeout=1800  # Timeout in seconds (30 minutes)
+#     local start_time=$(date +%s)
+#     local status_file="status.txt"
 
-    touch "$status_file" || handle_error "Failed to create status.txt file."
+#     touch "$status_file" || handle_error "Failed to create status.txt file."
 
-    while [ $(( $(date +%s) - $start_time )) -lt $timeout ]; do
-        echo "Checking status..."
-        if [ -f "$status_file" ]; then
-            local last_line=$(tail -n 1 "$status_file")
-            echo "Last line of status.txt: $last_line"
-            # Add more detailed status checking logic here
+#     while [ $(( $(date +%s) - $start_time )) -lt $timeout ]; do
+#         echo "Checking status..."
+#         if [ -f "$status_file" ]; then
+#             local last_line=$(tail -n 1 "$status_file")
+#             echo "Last line of status.txt: $last_line"
+#             # Add more detailed status checking logic here
             
-            # Example: Check if the cluster creation completed successfully
-            if grep -q "EKS cluster \"Three-Tier-K8s-EKS-Cluster\" in \"us-east-2\" region is ready" "$status_file"; then
-                echo "EKS cluster is ready"
-                rm "$status_file"
-                exit 0
-            fi
+#             # Example: Check if the cluster creation completed successfully
+#             if grep -q "EKS cluster \"Three-Tier-K8s-EKS-Cluster\" in \"us-east-2\" region is ready" "$status_file"; then
+#                 echo "EKS cluster is ready"
+#                 rm "$status_file"
+#                 exit 0
+#             fi
 
-            # Example: Check if an error occurred
-            if grep -q "\[✖\]" "$status_file"; then
-                echo "Error encountered during cluster creation. Exiting..."
-                rm "$status_file"
-                exit 1
-            fi
-        else
-            break
-        fi
-        sleep 5
-    done
+#             # Example: Check if an error occurred
+#             if grep -q "\[✖\]" "$status_file"; then
+#                 echo "Error encountered during cluster creation. Exiting..."
+#                 rm "$status_file"
+#                 exit 1
+#             fi
+#         else
+#             break
+#         fi
+#         sleep 5
+#     done
 
-    echo "Cluster creation did not complete within the timeout period."
-    rm "$status_file"
-    exit 1
-}
+#     echo "Cluster creation did not complete within the timeout period."
+#     rm "$status_file"
+#     exit 1
+# }
 
 if check_cluster_exists; then
     echo "Moving to Step 3: Update kubeconfig"
@@ -98,9 +98,9 @@ if check_cluster_exists; then
     echo "Step 3 completed"
 else
     create_cluster
-    echo "Checking status after EKS cluster creation"
-    # Check status
-    check_status
+    # echo "Checking status after EKS cluster creation"
+    # # Check status
+    # check_status
 fi
 
 # Step 4: Download Load Balancer policy
