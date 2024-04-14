@@ -23,4 +23,11 @@ resource "aws_instance" "ec2" {
     source      = "delete.sh"  # Source path of delete.sh
     destination = "/home/ubuntu/delete.sh"  # Destination path on EC2 instance
   }
+
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file("/home/ubuntu/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/JenkinsServer-Prerequiste/devsecops-key")  # Path to your private key
+    host        = self.public_ip  # Assuming you want to use the public IP
+  }
 }
