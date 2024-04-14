@@ -178,6 +178,14 @@ In Industry Projects your repository will always be private. So, add the usernam
 * Description: github
 * Click on Create.
 
+### Task4: Setup EKS Cluster, Load Balancer on our EKS, ECR Private Repositories and ArgoCD
+```
+chmod +x setup.sh
+```
+```
+./setup.sh
+```
+
 
 
 
