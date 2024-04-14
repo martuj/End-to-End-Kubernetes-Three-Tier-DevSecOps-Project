@@ -182,11 +182,11 @@ Now, we have to configure Jenkins. So, copy the public IP of your Jenkins Server
 ### Task3: Set GitHub credentials on Jenkins
 In Industry Projects your repository will always be private. So, add the username and personal access token of your GitHub account.
 * Kind:  `Username with password`
-* Scope: Global
+* Scope: `Global`
 * Username: <Your-Github-Username>
 * Password: <Your-Github-token>
-* ID: github
-* Description: github
+* ID: `github`
+* Description: `github`
 * Click on Create.
 
 ### Task4: Setup EKS Cluster, Load Balancer on our EKS, ECR Private Repositories and ArgoCD
