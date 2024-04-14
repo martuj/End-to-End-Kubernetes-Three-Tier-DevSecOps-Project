@@ -179,6 +179,7 @@ In Industry Projects your repository will always be private. So, add the usernam
 * Click on Create.
 
 ### Task4: Setup EKS Cluster, Load Balancer on our EKS, ECR Private Repositories and ArgoCD
+A file called `setup.sh` is already present at  current location /home/ubuntu. This file needs to be executed to Setup EKS Cluster, Load Balancer on our EKS, ECR Private Repositories and ArgoCD
 ```
 chmod +x setup.sh
 ```
