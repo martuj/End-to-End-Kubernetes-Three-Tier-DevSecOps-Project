@@ -333,4 +333,36 @@ echo "Checking deployment status..."
 kubectl get deployments -n three-tier
 kubectl get services -n three-tier
 
+# Step 15: Set ArgoCD server hostname and admin password
+echo "Setting ArgoCD server hostname and admin password..."
+
+# Function to set ArgoCD server hostname
+set_argocd_server() {
+    ARGOCD_SERVER=$(kubectl get svc argocd-server -n argocd -o json | jq -r '.status.loadBalancer.ingress[0].hostname')
+    if [ -z "$ARGOCD_SERVER" ]; then
+        handle_error "Failed to retrieve ArgoCD server hostname."
+    fi
+}
+
+# Function to set ArgoCD admin password
+set_argocd_password() {
+    ARGO_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+    if [ -z "$ARGO_PWD" ]; then
+        handle_error "Failed to retrieve ArgoCD admin password."
+    fi
+}
+
+# Set ArgoCD server hostname
+set_argocd_server
+
+# Set ArgoCD admin password
+set_argocd_password
+
+echo "ArgoCD server hostname: $ARGOCD_SERVER"
+echo "ArgoCD admin password: $ARGO_PWD"
+
+# End of script
+echo "Script execution completed."
+
+
 echo "Script execution completed."
