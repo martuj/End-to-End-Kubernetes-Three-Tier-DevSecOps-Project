@@ -93,15 +93,18 @@ create_cluster() {
 
 if check_cluster_exists; then
     echo "Moving to Step 3: Update kubeconfig"
-    # Move to Step 3
-    aws eks update-kubeconfig --region us-east-2 --name Three-Tier-K8s-EKS-Cluster
-    echo "Step 3 completed"
+    break
 else
     create_cluster
     # echo "Checking status after EKS cluster creation"
     # # Check status
     # check_status
 fi
+
+# Step 3:  Update kubeconfig
+echo "Update kubeconfig"
+aws eks update-kubeconfig --region us-east-2 --name Three-Tier-K8s-EKS-Cluster
+echo "Step 3 completed"
 
 # Step 4: Download Load Balancer policy
 echo "Download Load Balancer policy"
