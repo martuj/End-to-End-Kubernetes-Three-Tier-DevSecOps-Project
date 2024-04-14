@@ -35,45 +35,6 @@ Before starting the project, ensure you have the following prerequisites:
 
 Once the EC2 is ready, follow the below Commands to perform lab:
 ```
-sudo hostnamectl set-hostname TerraformServer
-bash
-```
-```
-sudo apt update
-```
-```
-sudo apt install wget unzip -y
-```
-```
-wget https://releases.hashicorp.com/terraform/1.6.3/terraform_1.6.3_linux_amd64.zip
-```
-To know the latest Terraform version - [Install Terraform](https://developer.hashicorp.com/terraform/downloads)
-```
-unzip terraform_1.6.3_linux_amd64.zip
-```
-```
-ls
-sudo mv terraform /usr/local/bin
-```
-```
-rm terraform_1.6.3_linux_amd64.zip
-```
-```
-ls
-terraform
-```
-```
-terraform -v
-```
-
-### Task-2: Install Required Packages. 
-```
-sudo apt-get install python3-pip -y
-```
-```
-sudo pip3 install awscli
-```
-```
 aws configure
 ```
 * When it prompts for Credentials, Enter the Keys as example shown below
