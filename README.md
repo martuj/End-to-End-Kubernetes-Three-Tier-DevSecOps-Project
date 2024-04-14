@@ -58,6 +58,17 @@ Clone the Git repository
 ```
 git clone https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project
 ```
+Now Install Terraform
+```
+cd End-to-End-Kubernetes-Three-Tier-DevSecOps-Project && cd TerraformSetup
+```
+```
+chmod +x TerraformSetup.sh
+```
+```
+./Terraform.sh
+```
+
 Now will we create the below resources
 * s3 bucket
 * dynamodb table
@@ -65,7 +76,7 @@ Now will we create the below resources
 
 For this navigate to the JenkinsServer-Prerequiste
 ```
-cd End-to-End-Kubernetes-Three-Tier-DevSecOps-Project && cd cd JenkinsServer-Prerequiste
+cd .. && cd cd JenkinsServer-Prerequiste
 ```
 ```
 terraform init
