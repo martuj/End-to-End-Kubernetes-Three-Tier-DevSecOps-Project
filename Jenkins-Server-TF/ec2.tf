@@ -13,4 +13,14 @@ resource "aws_instance" "ec2" {
   tags = {
     Name = var.instance-name
   }
+
+  provisioner "file" {
+    source      = "create.sh"   # Source path of create.sh
+    destination = "/home/ubuntu/script.sh"  # Destination path on EC2 instance
+  }
+
+  provisioner "file" {
+    source      = "delete.sh"  # Source path of delete.sh
+    destination = "/home/ubuntu/delete.sh"  # Destination path on EC2 instance
+  }
 }
