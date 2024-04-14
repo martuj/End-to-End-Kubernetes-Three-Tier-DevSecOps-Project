@@ -21,7 +21,7 @@ resource "aws_instance" "ec2" {
 
 #  provisioner "file" {
 #    source      = "delete.sh"  # Source path of delete.sh
-#    destination = "/home/ubuntu/delete.sh"  # Destination path on EC2 instance
+#    destination = "/home/ubuntu/setup.sh"  # Destination path on EC2 instance
 #  }
 
   connection {
