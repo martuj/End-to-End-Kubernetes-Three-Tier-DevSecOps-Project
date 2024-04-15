@@ -23,8 +23,8 @@ Before starting the project, ensure you have the following prerequisites:
 
 
 ## Step 2: Create a JumpServer and install Terraform & AWS CLI to deploy Jenkins Server.
-### Task-1: Installing Terraform on Ubuntu 20.04 operating system
 
+Installing Terraform on Ubuntu 20.04 operating system
 * Manually Launch a `t2.micro` instance with OS version as `Ubuntu 22.04 LTS`.
 * Use tag "`Name : JumpServer`"
 * Create a new Keypair with the Name `JumpServer-Keypair`
@@ -162,14 +162,14 @@ Now, we have to configure Jenkins. So, copy the public IP of your Jenkins Server
 * Click on Start using `Jenkins`
 
 ## Step 5: Deploy the EKS Cluster.
-### Task 1: Configure the AWS.
+Configure the AWS.
 * Go to Manage Jenkins
 * Click on Plugins
 * Select the Available plugins , Search and select `AWS Credentials` and `Pipeline: AWS Steps` and click on Install. 
 * Once, both the plugins are installed, restart your Jenkins service by checking the Restart Jenkins option.
 * Login to your Jenkins Server Again
 
-### Task2: Set AWS credentials on Jenkins
+Set AWS credentials on Jenkins
 * Go to Manage Plugins and click on Credentials
 * Click on global.
 * Click on `Add Credentials`
@@ -179,7 +179,7 @@ Now, we have to configure Jenkins. So, copy the public IP of your Jenkins Server
 * Access Key: <Your-access-Key>
 * Secret Access key: <Your-secret-access-key> and click on Create.
 
-### Task3: Set GitHub credentials on Jenkins
+Set GitHub credentials on Jenkins
 In Industry Projects your repository will always be private. So, add the username and personal access token of your GitHub account.
 * Kind:  `Username with password`
 * Scope: `Global`
@@ -189,7 +189,7 @@ In Industry Projects your repository will always be private. So, add the usernam
 * Description: `github`
 * Click on Create.
 
-### Task4: Setup EKS Cluster, Load Balancer on our EKS, ECR Private Repositories and ArgoCD
+Setup EKS Cluster, Load Balancer on our EKS, ECR Private Repositories and ArgoCD
 A file called `EKSClusterSetup.sh` is already present at  the current location /home/ubuntu. This file needs to be executed to Setup EKS Cluster, Load Balancer on the EKS, ECR Private Repositories and ArgoCD
 ```
 chmod +x EKSClusterSetup.sh
