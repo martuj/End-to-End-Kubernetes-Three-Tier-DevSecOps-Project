@@ -222,6 +222,7 @@ Now, we have to configure webhooks for quality checks.
 * Here, you can see the webhook.
 
 Now, we have to create a Project for frontend code.
+* Click on `Project`.
 * Click on `Manually`.
 * Provide the display name `three-tier-frontend` to your Project and click on Setup
 * Click on Locally.
