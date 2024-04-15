@@ -460,27 +460,13 @@ While your frontend Application is starting to deploy, We will create an applica
 
 Once your Ingress application is deployed. It will create an Application Load Balancer. You can check out the load balancer named with k8s-three.
 
-Now, Copy the ALB-DNS and go to your Domain Provider in my case porkbun is the domain provider.
-
-Go to DNS and add a CNAME type with hostname backend then add your ALB in the Answer and click on Save
-
-Note: I have created a subdomain backend.amanpathakdevops.study
-
-
-You can see all 4 application deployments in the below snippet.
-
-
-Now, hit your subdomain after 2 to 3 minutes in your browser to see the magic.
-
+Now, Copy the ALB-DNS and paste it on your browser. Refresh after 2 to 3 minutes in your browser to see the magic.
 
 You can play with the application by adding the records.
 
-
 You can play with the application by deleting the records.
 
-
 Now, you can see your Grafana Dashboard to view the EKS data such as pods, namespace, deployments, etc.
-
 
 If you want to monitor the three-tier namespace.
 
@@ -488,40 +474,24 @@ In the namespace, replace three-tier with another namespace.
 
 You will see the deployments that are done by ArgoCD
 
-
-This is the Ingress Application Deployment in ArgoCD
-
-
-This is the Frontend Application Deployment in ArgoCD
-
-
-This is the Backend Application Deployment in ArgoCD
-
-
-This is the Database Application Deployment in ArgoCD
-
-
 If you observe, we have configured the Persistent Volume & Persistent Volume Claim. So, if the pods get deleted then, the data won’t be lost. The Data will be stored on the host machine.
 
 To validate it, delete both Database pods.
 
-
 Now, the new pods will be started.
-
 
 And Your Application won’t lose a single piece of data.
 
 
 Conclusion:
 In this comprehensive DevSecOps Kubernetes project, we successfully:
-
-Established IAM user and Terraform for AWS setup.
-Deployed Jenkins on AWS, configured tools, and integrated it with Sonarqube.
-Set up an EKS cluster, configured a Load Balancer, and established private ECR repositories.
-Implemented monitoring with Helm, Prometheus, and Grafana.
-Installed and configured ArgoCD for GitOps practices.
-Created Jenkins pipelines for CI/CD, deploying a Three-Tier application.
-Ensured data persistence with persistent volumes and claims.
+* Established IAM user and Terraform for AWS setup.
+* Deployed Jenkins on AWS, configured tools, and integrated it with Sonarqube.
+* Set up an EKS cluster, configured a Load Balancer, and established private ECR repositories.
+* Implemented monitoring with Helm, Prometheus, and Grafana.
+* Installed and configured ArgoCD for GitOps practices.
+* Created Jenkins pipelines for CI/CD, deploying a Three-Tier application.
+* Ensured data persistence with persistent volumes and claims.
 
 
 
