@@ -404,21 +404,20 @@ As our repository is private. So, we need to configure the Private Repository in
 * Click on CONNECT REPO USING HTTPS
 * `Type` : `git`
 * `Project` : `default`
-* `Repository URL` : 
-* Now, provide the repository name where your Manifests files are present.
-
-Provide the username and GitHub Personal Access token and click on CONNECT.
-
+* `Repository URL` : `https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project.git`
+* Provide the username and GitHub Personal Access token and click on CONNECT.
 
 If your Connection Status is Successful it means repository connected successfully.
 
-
 Now, we will create our first application which will be a database.
-
-Click on CREATE APPLICATION.
-
-
-Provide the details as it is provided in the below snippet and scroll down.
+* Click on APPLICATION -> NEW APP
+* Provide the details as it is provided in the below.
+* `Application Name`: `database`
+* `Project Name`: default
+* `SYNC POLICY` : Automatic
+* `Repository URL` : `https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project.git`
+* `Revision` : `HEAD`
+* `Path` : 
 
 
 Select the same repository that you configured in the earlier step.
