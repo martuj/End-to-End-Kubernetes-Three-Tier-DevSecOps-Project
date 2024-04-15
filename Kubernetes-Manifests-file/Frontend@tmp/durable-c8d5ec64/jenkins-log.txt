@@ -1,0 +1,11 @@
++ git config user.email meharnafis@gmail.com
++ git config user.name Mehar-Nafis
++ BUILD_NUMBER=2
++ echo 2
+2
++ grep -oP (?<=frontend:)[^ ]+ deployment.yaml
++ imageTag=1
++ echo 1
+1
++ sed -i s/frontend:1/frontend:2/ deployment.yaml
++ git add --all
