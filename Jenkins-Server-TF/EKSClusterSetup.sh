@@ -167,7 +167,13 @@ kubectl create secret generic ecr-registry-secret \
 
 # Step 13: Deploy ArgoCD
 echo "Deploying ArgoCD..."
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml || handle_error "Failed to deploy ArgoCD."
+if kubectl get deployment -n argocd argocd-server &> /dev/null; then
+    echo "ArgoCD is already installed."
+else
+    # Deploy ArgoCD
+    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml || handle_error "Failed to deploy ArgoCD: Could not reach webhook service."
+fi
+
 
 # Step 14: Patch ArgoCD service
 echo "Patching ArgoCD service..."
