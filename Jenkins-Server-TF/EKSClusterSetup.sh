@@ -140,12 +140,24 @@ else
     helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=my-cluster --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller || handle_error "Failed to install AWS Load Balancer Controller: Installation failed or name already in use."
 fi
 
-# Step 9: Create Amazon ECR Private Repositories
-echo "Create Amazon ECR Private Repositories"
-# Frontend repository
-aws ecr describe-repositories --repository-names frontend --region us-east-2 &>/dev/null || aws ecr create-repository --repository-name frontend --region us-east-2 || handle_error "Failed to create frontend ECR repository."
-# Backend repository
-aws ecr describe-repositories --repository-names backend --region us-east-2 &>/dev/null || aws ecr create-repository --repository-name backend --region us-east-2 || handle_error "Failed to create backend ECR repository."
+# Wait for AWS Load Balancer Controller pods to be ready
+echo "Waiting for AWS Load Balancer Controller pods to be ready..."
+for (( y=0 ; y < 30 ; y++ )); do
+    lb_controller_pods=$(kubectl get pods -n kube-system -l app.kubernetes.io/name=aws-load-balancer-controller --field-selector=status.phase=Running 2>/dev/null | grep -c "aws-load-balancer-controller")
+    if [ "$lb_controller_pods" -eq 1 ]; then
+        echo "AWS Load Balancer Controller pods are ready."
+        break
+    else
+        sleep 30
+        echo "y:" $y
+    fi
+done
+
+if [ "$lb_controller_pods" -ne 1 ]; then
+    handle_error "AWS Load Balancer Controller pods are not ready within the specified timeout."
+fi
+
+
 
 echo "Amazon ECR private repositories created successfully."
 
