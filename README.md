@@ -500,7 +500,13 @@ Execute the below commands on your Jenkins Server
 eksctl delete cluster --name Three-Tier-K8s-EKS-Cluster --region us-east-2
 ```
 ```
-
+aws ecr delete-repository --repository-name backend --force --region us-east-2
+```
+```
+aws ecr delete-repository --repository-name frontend --force --region us-east-2
+```
+```
+aws iam delete-policy --policy-arn arn:aws:iam::375728455575:policy/AWSLoadBalancerControllerIAMPolicy
 ```
 ```
 exit
