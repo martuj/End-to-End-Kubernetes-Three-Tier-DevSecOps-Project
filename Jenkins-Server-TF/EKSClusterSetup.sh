@@ -158,9 +158,8 @@ fi
 # Step 11: Create namespaces
 echo "Creating namespaces..."
 #kubectl create namespace three-tier || handle_error "Failed to
-kubectl create namespace three-tier || handle_error "Failed to create namespace."
-
-
+kubectl create namespace three-tier || handle_error "Failed to create three-tier namespace."
+kubectl create namespace argocd || handle_error "Failed to create argocd namespace."
 
 # Step 15: Set ArgoCD server hostname and admin password
 echo "Setting ArgoCD server hostname and admin password..."
