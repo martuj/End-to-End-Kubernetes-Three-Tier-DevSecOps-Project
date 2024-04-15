@@ -100,8 +100,6 @@ if check_cluster_exists; then
 else
     create_cluster
     echo "Checking status after EKS cluster creation"
-    # Check status
-    check_status
 fi
 
 # Step 4: Download Load Balancer policy
