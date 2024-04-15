@@ -226,34 +226,40 @@ Now, we have to create a Project for frontend code.
 * Click on `Manually`.
 * Provide the display name `three-tier-frontend` to your Project and click on Setup
 * Click on Locally.
-* Select the Use existing token and click on Continue.
-* Select Other and Linux as OS.
+* Select the Use existing token and paste the `sonar-token` that you copied and click on Continue.
+* Select `Other` and `Linux` as OS.
 
 Now, we have to create a Project for backend code.
-* Click on Create Project.
-* Provide the name of your project name and click on Set up.
+* Click on `Project`.
+* Click on `Create-Project`
+* Click on `Manually`.
+* Provide the display name `three-tier-backend` to your Project and click on Setup
 * Click on Locally.
-* Select the Use existing token and click on Continue.
-* Select Other and Linux as OS.
+* Select the Use existing token and paste the `sonar-token` that you copied and click on Continue.
+* Select `Other` and `Linux` as OS.
 
 ## Step 8: Storing the Sonar Credentials on Jenkins 
 Now, we have to store the sonar credentials.
 * Go to Dashboard -> Manage Jenkins -> Credentials
-* Select the kind as Secret text paste your token in Secret and keep other things as it is.
+* Select the kind as `Secret text` paste your `sonar-token` in Secret.
+* Add `sonar-token` in  `ID` and `Description`.
 * Click on Create
 
 ## Step 9: Storing the ECR Credentials on Jenkins 
 
 Now, according to our Pipeline, we need to add an Account ID in the Jenkins credentials because of the ECR repo URI.
-* Select the kind as Secret text paste your AWS Account ID in Secret and keep other things as it is.
+* Select the kind as `Secret text` and paste your `AWS Account ID` in Secret.
+*  Add `ACCOUNT_ID` in  `ID` and `Description`.
 * Click on Create
 
 Now, we need to provide our ECR image name for frontend which is frontend only.
-* Select the kind as Secret text paste your frontend repo name in Secret and keep other things as it is.
+* Select the kind as `Secret text` and paste your `frontend` in Secret.
+* Add `ECR_REPO1` in  `ID` and `Description`.
 * Click on Create
 
 Now, we need to provide our ECR image name for the backend which is backend only.
-* Select the kind as Secret text, paste your backend repo name in Secret, and keep other things as it is.
+* Select the kind as `Secret text` and paste your `backend` in Secret.
+* Add `ECR_REPO2` in  `ID` and `Description`.
 * Click on Create
 
 ## Step 10: Install the required plugins and configure the plugins to deploy our Three-Tier Application
