@@ -160,26 +160,7 @@ echo "Creating namespaces..."
 #kubectl create namespace three-tier || handle_error "Failed to
 kubectl create namespace three-tier || handle_error "Failed to create namespace."
 
-# Step 12: Deploy the application to the Kubernetes Cluster
-echo "Deploying the application to the Kubernetes Cluster..."
 
-# Step 12A: Deploy the frontend
-echo "Deploying the frontend..."
-kubectl apply -f frontend-deployment.yaml -n three-tier || handle_error "Failed to deploy frontend."
-
-# Step 12B: Deploy the backend
-echo "Deploying the backend..."
-kubectl apply -f backend-deployment.yaml -n three-tier || handle_error "Failed to deploy backend."
-
-# Step 13: Expose the services
-echo "Exposing the services..."
-kubectl apply -f frontend-service.yaml -n three-tier || handle_error "Failed to expose frontend service."
-kubectl apply -f backend-service.yaml -n three-tier || handle_error "Failed to expose backend service."
-
-# Step 14: Check deployment status
-echo "Checking deployment status..."
-kubectl get deployments -n three-tier
-kubectl get services -n three-tier
 
 # Step 15: Set ArgoCD server hostname and admin password
 echo "Setting ArgoCD server hostname and admin password..."
