@@ -494,6 +494,22 @@ In this comprehensive DevSecOps Kubernetes project, we successfully:
 * Ensured data persistence with persistent volumes and claims.
 
 
+# Cleanup
+Execute the below commands on your Jenkins Server
+```
+eksctl delete cluster --name Three-Tier-K8s-EKS-Cluster --region us-east-2
+```
+```
+
+```
+```
+exit
+```
+
+On the JumpServer execute the
+
+
+
 
 
 
