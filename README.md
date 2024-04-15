@@ -211,7 +211,7 @@ chmod +x EKSClusterSetup.sh
 * Click on Log In.
 * Update the password
 * Click on `Administration then Security`, and select `Users`
-* Click on `Update tokens`
+* Click on `Update tokens` and give the token name as `sonar-token`
 * Click on `Generate`
 * Copy the token keep it somewhere safe and click on `Done`.
 
