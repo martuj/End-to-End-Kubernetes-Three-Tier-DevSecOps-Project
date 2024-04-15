@@ -76,7 +76,7 @@ Now will we create the below resources
 
 For this navigate to the JenkinsServer-Prerequiste
 ```
-cd .. && cd cd JenkinsServer-Prerequiste
+cd .. && cd JenkinsServer-Prerequiste
 ```
 ```
 terraform init
