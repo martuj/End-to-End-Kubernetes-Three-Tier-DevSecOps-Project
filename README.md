@@ -299,7 +299,7 @@ Now, we will configure nodejs
 Now, we will configure the OWASP Dependency check
 * Search for Dependency-Check and provide the configuration like the below.
 * Click on `Add Dependency-Check`
-* Name : `DP_Check`
+* Name : `DP-Check`
 * `Install automatically` -> Select `Install from github.com` -> Version : `dependency-check 9.0.9`
 
 Now, we will configure the docker
