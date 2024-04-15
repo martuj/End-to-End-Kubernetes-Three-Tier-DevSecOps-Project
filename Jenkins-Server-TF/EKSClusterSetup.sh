@@ -197,7 +197,7 @@ fi
 echo "Patching ArgoCD service..."
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}' || handle_error "Failed to patch ArgoCD service."
 
-echo "ArgoCD Patch Update Successfull."
+echo "ArgoCD Patch Update Successful."
 
 # Function to get ArgoCD server hostname
 get_argocd_hostname() {
@@ -213,7 +213,7 @@ get_argocd_password() {
 export ARGOCD_SERVER=$(get_argocd_hostname)
 export ARGO_PWD=$(get_argocd_password)
 
-Step 15: Installing Helm
+# Step 15: Installing Helm
 # Function to add Helm repositories
 add_helm_repositories() {
     local repo_name="$1"
@@ -238,6 +238,7 @@ install_helm_chart() {
 }
 
 # Add Helm repositories
+echo "Installing Helm, promethus and Grafana"
 add_helm_repositories "stable" "https://charts.helm.sh/stable"
 add_helm_repositories "prometheus-community" "https://prometheus-community.github.io/helm-charts"
 
@@ -251,4 +252,4 @@ echo "ArgoCD UserName: admin"
 echo "ArgoCD Password: $ARGO_PWD"
 
 # You can now use $ARGOCD_SERVER and $ARGO_PWD variables in your script as needed
-echo "Sript Execution Completed!"
+echo "Script Execution Completed!"
