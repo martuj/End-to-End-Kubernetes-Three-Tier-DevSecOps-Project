@@ -521,7 +521,16 @@ cd ~/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/Jenkins-Server-TF
 terraform destroy -auto-approve
 ```
 ```
+cd .. && cd JenkinsServer-Prerequiste/
+```
+```
+aws s3 rm s3://mehar-devsecops-bucket/ --recursive
+```
+```
+terraform destroy -auto-approve
+```
 
+Now terminate your JumpServer from the Console.
 
 
 
