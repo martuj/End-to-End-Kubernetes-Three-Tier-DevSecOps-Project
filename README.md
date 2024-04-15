@@ -368,7 +368,7 @@ kubectl get svc
 You can also validate from your console.
 
 Now, access your Prometheus Dashboard
-* Paste the <Prometheus-LB-DNS>:9090 in your browser
+* Paste the (Prometheus-LB-DNS):9090 in your browser
 * Click on Status and select Target.
 * You will see a lot of Targets
 
@@ -436,39 +436,29 @@ Provide the details as it is provided in the below.
 * `Namespace`: `three-tier`
 * Click on CREATE.
 
-
-
-Click on CREATE.
-
-
 While your backend Application is starting to deploy, We will create an application for the frontend.
-
-Provide the details as it is provided in the below snippet and scroll down.
-
-
-Select the same repository that you configured in the earlier step.
-
-In the Path, provide the location where your Manifest files are presented and provide other things as shown in the below screenshot.
-
-Click on CREATE.
-
+* `Application Name`: `frontend`
+* `Project Name`: `default`
+* `SYNC POLICY` : `Automatic`
+* `Repository URL` : `https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project.git` (Select the same repository that you configured in the earlier step.)
+* `Revision` : `HEAD`
+* `Path` : `Kubernetes-Manifests-file/Frontend` (In the Path, provide the location where your Manifest files are presented and provide other things as shown in the below screenshot.)
+* `Cluster URL` : `https://kubernetes.default.svc`
+* `Namespace`: `three-tier`
+* Click on CREATE.
 
 While your frontend Application is starting to deploy, We will create an application for the ingress.
+* `Application Name`: `ingress`
+* `Project Name`: `default`
+* `SYNC POLICY` : `Automatic`
+* `Repository URL` : `https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project.git` (Select the same repository that you configured in the earlier step.)
+* `Revision` : `HEAD`
+* `Path` : `Kubernetes-Manifests-file/Ingress` (In the Path, provide the location where your Manifest files are presented and provide other things as shown in the below screenshot.)
+* `Cluster URL` : `https://kubernetes.default.svc`
+* `Namespace`: `three-tier`
+* Click on CREATE.
 
-Provide the details as it is provided in the below snippet and scroll down.
-
-
-Select the same repository that you configured in the earlier step.
-
-In the Path, provide the location where your Manifest files are presented and provide other things as shown in the below screenshot.
-
-Click on CREATE.
-
-
-Once your Ingress application is deployed. It will create an Application Load Balancer
-
-You can check out the load balancer named with k8s-three.
-
+Once your Ingress application is deployed. It will create an Application Load Balancer. You can check out the load balancer named with k8s-three.
 
 Now, Copy the ALB-DNS and go to your Domain Provider in my case porkbun is the domain provider.
 
