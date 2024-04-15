@@ -341,88 +341,55 @@ Note: Do the changes in the Pipeline according to your project.
 
 ## Setup 10: Set up the Monitoring for our EKS Cluster. 
 
-Prometheus and Grafana have already been installed by the Shell Script that we executed.
+Prometheus and Grafana have already been installed by the Shell Script was executed.
 
 Now, check the service by the below command
-
+```
 kubectl get svc
+```
+Now, we need to access our Prometheus and Grafana consoles from outside of the cluster. For that, we need to change the Service type from ClusterType to LoadBalancer
 
-Now, we need to access our Prometheus and Grafana consoles from outside of the cluster.
+Edit the `my-kube-prometheus-stack-prometheus` service
+```
+kubectl edit svc my-kube-prometheus-stack-prometheus
+```
+Modification `type` from ClusterType to LoadBalancer
 
-For that, we need to change the Service type from ClusterType to LoadBalancer
-
-Edit the stable-kube-prometheus-sta-prometheus service
-
-kubectl edit svc stable-kube-prometheus-sta-prometheus
-
-Modification in the 48th line from ClusterType to LoadBalancer
-
-
-Edit the stable-grafana service
-
-kubectl edit svc stable-grafana
-
-Modification in the 39th line from ClusterType to LoadBalancer
-
+Edit the `my-kube-prometheus-stack-grafana ` service
+```
+kubectl edit svc my-kube-prometheus-stack-grafana 
+```
+Modifiy `type` from ClusterType to LoadBalancer
 
 Now, if you list again the service then, you will see the LoadBalancers DNS names
-
+```
 kubectl get svc
-
+```
 You can also validate from your console.
 
-
 Now, access your Prometheus Dashboard
-
-Paste the <Prometheus-LB-DNS>:9090 in your favorite browser and you will see like this
-
-
-Click on Status and select Target.
-
-You will see a lot of Targets
-
+* Paste the <Prometheus-LB-DNS>:9090 in your browser
+* Click on Status and select Target.
+* You will see a lot of Targets
 
 Now, access your Grafana Dashboard
-
-Copy the ALB DNS of Grafana and paste it into your favorite browser.
-
-The username will be admin and the password will be prom-operator for your Grafana LogIn.
-
-
-Now, click on Data Source
-
-
-Select Prometheus
-
-
-In the Connection, paste your <Prometheus-LB-DNS>:9090.
-
-
-If the URL is correct, then you will see a green notification/
-
-Click on Save & test.
-
+* Copy the ALB DNS of Grafana and paste it into your favorite browser.
+* The username will be `admin` and the password will be `prom-operator` for your Grafana LogIn.
+* Now, click on `Add you first Data Source`.
+* Select Prometheus
+* In the Connection, paste your <Prometheus-LB-DNS>:9090.
+* Click on Save & test.
+* If the URL is correct, then you will see a green notification
 
 Now, we will create a dashboard to visualize our Kubernetes Cluster Logs.
-
-Click on Dashboard.
-
-
-Once you click on Dashboard. You will see a lot of Kubernetes components monitoring.
-
-
-Let’s try to import a type of Kubernetes Dashboard.
-
-Click on New and select Import
-
-
-Provide 6417 ID and click on Load
+* Click on Dashboard.
+* Once you click on Dashboard. You will see a lot of Kubernetes components monitoring.
+* Let’s try to import a type of Kubernetes Dashboard.
+* Click on New and select Import
+* Provide `6417` ID and click on Load
+* Select the data source(in this case prometheus-1) that you have created earlier and click on Import.
 
 Note: 6417 is a unique ID from Grafana which is used to Monitor and visualize Kubernetes Data
-
-
-Select the data source that you have created earlier and click on Import.
-
 
 Here, you go.
 
@@ -431,16 +398,14 @@ You can view your Kubernetes Cluster Data.
 Feel free to explore the other details of the Kubernetes Cluster.
 
 
-Step 11: We will deploy our Three-Tier Application using ArgoCD.
+## Step 11: Deploy our Three-Tier Application using ArgoCD.
 As our repository is private. So, we need to configure the Private Repository in ArgoCD.
-
-Click on Settings and select Repositories
-
-
-Click on CONNECT REPO USING HTTPS
-
-
-Now, provide the repository name where your Manifests files are present.
+* Go to ArgoCD and click on Settings and select Repositories
+* Click on CONNECT REPO USING HTTPS
+* `Type` : `git`
+* `Project` : `default`
+* `Repository URL` : 
+* Now, provide the repository name where your Manifests files are present.
 
 Provide the username and GitHub Personal Access token and click on CONNECT.
 
