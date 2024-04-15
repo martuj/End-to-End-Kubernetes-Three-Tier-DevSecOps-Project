@@ -413,8 +413,8 @@ Now, we will create our first application which will be a database.
 * Click on APPLICATION -> NEW APP
 * Provide the details as it is provided in the below.
 * `Application Name`: `database`
-* `Project Name`: default
-* `SYNC POLICY` : Automatic
+* `Project Name`: `default`
+* `SYNC POLICY` : `Automatic`
 * `Repository URL` : `https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project.git` (Select the same repository that you configured in the earlier step.)
 * `Revision` : `HEAD`
 * `Path` : `Kubernetes-Manifests-file/Database` (In the Path, provide the location where your Manifest files are presented and provide other things as shown in the below screenshot.)
@@ -427,12 +427,13 @@ Provide the details as it is provided in the below.
 * Click on APPLICATION -> NEW APP
 * Provide the details as it is provided in the below.
 * `Application Name`: `backend`
-* `Project Name`: default
-* `SYNC POLICY` : Automatic
+* `Project Name`: `default`
+* `SYNC POLICY` : `Automatic`
 * `Repository URL` : `https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project.git` (Select the same repository that you configured in the earlier step.)
 * `Revision` : `HEAD`
-* `Path` : `Kubernetes-Manifests-file/Database` (In the Path, provide the location where your Manifest files are presented and provide other things as shown in the below screenshot.)
+* `Path` : `Kubernetes-Manifests-file/Backend` (In the Path, provide the location where your Manifest files are presented and provide other things as shown in the below screenshot.)
 * `Cluster URL` : `https://kubernetes.default.svc`
+* `Namespace`: `three-tier`
 * Click on CREATE.
 
 
