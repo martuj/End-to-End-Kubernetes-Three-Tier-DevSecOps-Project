@@ -453,7 +453,7 @@ While your frontend Application is starting to deploy, We will create an applica
 * `SYNC POLICY` : `Automatic`
 * `Repository URL` : `https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project.git` (Select the same repository that you configured in the earlier step.)
 * `Revision` : `HEAD`
-* `Path` : `Kubernetes-Manifests-file/Ingress` (In the Path, provide the location where your Manifest files are presented and provide other things as shown in the below screenshot.)
+* `Path` : `Kubernetes-Manifests-file` (In the Path, provide the location where your Manifest files are presented and provide other things as shown in the below screenshot.)
 * `Cluster URL` : `https://kubernetes.default.svc`
 * `Namespace`: `three-tier`
 * Click on CREATE.
