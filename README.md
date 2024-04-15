@@ -512,7 +512,15 @@ aws iam delete-policy --policy-arn arn:aws:iam::375728455575:policy/AWSLoadBalan
 exit
 ```
 
-On the JumpServer execute the
+
+On the JumpServer execute the below commands
+```
+cd ~/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/Jenkins-Server-TF
+```
+```
+terraform destroy -auto-approve
+```
+```
 
 
 
