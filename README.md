@@ -249,7 +249,7 @@ Now, we have to store the sonar credentials.
 
 Now, according to our Pipeline, we need to add an Account ID in the Jenkins credentials because of the ECR repo URI.
 * Select the kind as `Secret text` and paste your `AWS Account ID` in Secret.
-*  Add `ACCOUNT_ID` in  `ID` and `Description`.
+* Add `ACCOUNT_ID` in  `ID` and `Description`.
 * Click on Create
 
 Now, we need to provide our ECR image name for frontend which is frontend only.
@@ -278,32 +278,49 @@ Now, we have to configure the installed plugins.
 * Go to Dashboard -> Manage Jenkins -> Tools
 
 We are configuring jdk
-* Search for jdk and provide the configuration like the below snippet.
+* Search for jdk
+* Click on `Add JDK`
+* `Name` -> jdk
+* `Install automatically` -> Select `Install from adoptium.net` -> Version : `jdk-17.0.1 + 12`
 
 Now, we will configure the sonarqube-scanner
-* Search for the sonarqube scanner and provide the configuration like the below snippet.
+* Search for the sonarqube scanner and provide the configuration like the below.
+* Click on `Add SonarQube Scanner`
+* Name : `sonar-scanner`
+* `Install automatically` -> Select `Install from Maven Central` -> Version : `SonarQube Scanner 5.0.1.3006`
+  
 
 Now, we will configure nodejs
-* Search for node and provide the configuration like the below snippet.
+* Search for NodeJS and provide the configuration like the below.
+* Click on `Add NodeJS`
+* Name : `nodejs`
+* `Install automatically` -> Select `Install from nodejs.org` -> Version : `NodeJS 14.0.0`
 
 Now, we will configure the OWASP Dependency check
-* Search for Dependency-Check and provide the configuration like the below snippet.
+* Search for Dependency-Check and provide the configuration like the below.
+* Click on `Add Dependency-Check`
+* Name : `DP_Check`
+* `Install automatically` -> Select `Install from github.com` -> Version : `dependency-check 9.0.9`
 
 Now, we will configure the docker
-* Search for docker and provide the configuration like the below snippet.
+* Search for docker and provide the configuration like the below .
+* Click on `Add Docker`
+* Name : `docker`
+* `Install automatically` -> Select `Download from docker.com` -> Version : `latest`
+
+Click on `Save`
 
 Now, we have to set the path for Sonarqube in Jenkins
 * Go to Dashboard -> Manage Jenkins -> System
 
 Search for SonarQube installations
-* Provide the name as it is, then in the Server URL copy the sonarqube public IP (same as Jenkins) with port 9000 select the sonar token that we have added recently, and click on Apply & Save.
+* Provide the name as `sonar-server`, then in the Server URL copy the sonarqube public IP (same as Jenkins) with port 9000 (http://<jenkins-ip>:9000/)select the sonar token that we have added recently, and click on Apply & Save.
 
 Now, we are ready to create our Jenkins Pipeline to deploy our Backend Code.
 * Go to Jenkins Dashboard
 * Click on New Item
-* Provide the name of your Pipeline and click on OK.
-* This is the Jenkins file to deploy the Backend Code on EKS.
-* Copy and paste it into the Jenkins `https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/blob/master/Jenkins-Pipeline-Code/Jenkinsfile-Backend`
+* Provide the name as `Three-Tier-Backend-Application` and select `Pipeline` and click on OK.
+* Copy and paste from `https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/blob/master/Jenkins-Pipeline-Code/Jenkinsfile-Backend` in the Pipeline Script
 * Click Apply & Save.
 * Now, click on the build.
 * Our pipeline was successful after a few common mistakes.
