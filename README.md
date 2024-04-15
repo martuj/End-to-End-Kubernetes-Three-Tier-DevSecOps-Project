@@ -330,9 +330,8 @@ Note: Do the changes in the Pipeline according to your project.
 Now, we are ready to create our Jenkins Pipeline to deploy our Frontend Code.
 * Go to Jenkins Dashboard
 * Click on New Item
-* Provide the name of your Pipeline and click on OK.
-* This is the Jenkins file to deploy the Frontend Code on EKS.
-* Copy and paste it into the Jenkins `https://github.com/AmanPathak-DevOps/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/blob/master/Jenkins-Pipeline-Code/Jenkinsfile-Frontend`
+*  Provide the name as `Three-Tier-Frontend-Application` and select `Pipeline` and click on OK.
+* Copy and paste from `https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/blob/master/Jenkins-Pipeline-Code/Jenkinsfile-Frontend` in the Pipeline.
 * Click Apply & Save.
 * Now, click on the build
 * Our pipeline was successful after a few common mistakes
