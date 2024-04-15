@@ -34,6 +34,21 @@ Before starting the project, ensure you have the following prerequisites:
 * Once Launched, Connect to the Instance using `MobaXterm` or `Putty` or `EC2 Instance Connect` with username "`ubuntu`".
 
 Once the EC2 is ready, follow the below Commands to perform lab:
+
+Clone the Git repository
+```
+git clone https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project
+```
+Now Install Terraform
+```
+cd End-to-End-Kubernetes-Three-Tier-DevSecOps-Project && cd TerraformSetup
+```
+```
+chmod +x TerraformSetup.sh
+```
+```
+./Terraform.sh
+```
 ```
 aws configure
 ```
@@ -54,21 +69,6 @@ aws iam list-users
 ```
 
 ## Step 3: Deploy the Jenkins Server(EC2) using Terraform
-Clone the Git repository
-```
-git clone https://github.com/Mehar-Nafis/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project
-```
-Now Install Terraform
-```
-cd End-to-End-Kubernetes-Three-Tier-DevSecOps-Project && cd TerraformSetup
-```
-```
-chmod +x TerraformSetup.sh
-```
-```
-./Terraform.sh
-```
-
 Now will we create the below resources
 * s3 bucket
 * dynamodb table
