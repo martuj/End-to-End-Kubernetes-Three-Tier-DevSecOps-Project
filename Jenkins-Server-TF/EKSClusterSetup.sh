@@ -213,6 +213,38 @@ get_argocd_password() {
 export ARGOCD_SERVER=$(get_argocd_hostname)
 export ARGO_PWD=$(get_argocd_password)
 
+Step 15: Installing Helm
+# Function to add Helm repositories
+add_helm_repositories() {
+    local repo_name="$1"
+    local repo_url="$2"
+    if ! helm repo list | grep -q "$repo_name"; then
+        helm repo add "$repo_name" "$repo_url" || handle_error "Failed to add Helm repository: $repo_name."
+    else
+        echo "Helm repository $repo_name already exists. Skipping..."
+    fi
+}
+
+# Function to install Helm chart
+install_helm_chart() {
+    local chart_name="$1"
+    local chart_repo="$2"
+    local release_name="$3"
+    if ! helm list -A | grep -q "$release_name"; then
+        helm install "$release_name" "$chart_repo/$chart_name" || handle_error "Failed to install Helm chart: $chart_name."
+    else
+        echo "Helm chart $chart_name already installed with release name $release_name. Skipping..."
+    fi
+}
+
+# Add Helm repositories
+add_helm_repositories "stable" "https://charts.helm.sh/stable"
+add_helm_repositories "prometheus-community" "https://prometheus-community.github.io/helm-charts"
+
+# Install Prometheus stack
+install_helm_chart "kube-prometheus-stack" "prometheus-community" "my-kube-prometheus-stack"
+
+# Step 16: Print ArgoCD Server, UserID and PWD
 # Print ArgoCD password
 echo "ArgoCD Server: $ARGOCD_SERVER"
 echo "ArgoCD UserName: admin"
