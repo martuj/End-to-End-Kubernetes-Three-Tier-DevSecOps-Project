@@ -53,57 +53,56 @@ create_cluster() {
 }
 
 # Function to check status
-# check_status() {
-#     local timeout=1800  # Timeout in seconds (30 minutes)
-#     local start_time=$(date +%s)
-#     local status_file="status.txt"
+check_status() {
+    local timeout=1800  # Timeout in seconds (30 minutes)
+    local start_time=$(date +%s)
+    local status_file="status.txt"
 
-#     touch "$status_file" || handle_error "Failed to create status.txt file."
+    touch "$status_file" || handle_error "Failed to create status.txt file."
 
-#     while [ $(( $(date +%s) - $start_time )) -lt $timeout ]; do
-#         echo "Checking status..."
-#         if [ -f "$status_file" ]; then
-#             local last_line=$(tail -n 1 "$status_file")
-#             echo "Last line of status.txt: $last_line"
-#             # Add more detailed status checking logic here
-            
-#             # Example: Check if the cluster creation completed successfully
-#             if grep -q "EKS cluster \"Three-Tier-K8s-EKS-Cluster\" in \"us-east-2\" region is ready" "$status_file"; then
-#                 echo "EKS cluster is ready"
-#                 rm "$status_file"
-#                 exit 0
-#             fi
+    while [ $(( $(date +%s) - $start_time )) -lt $timeout ]; do
+        echo "Checking status..."
+        if [ -f "$status_file" ]; then
+            local last_line=$(tail -n 1 "$status_file")
+            echo "Last line of status.txt: $last_line"
+            local grep_result=$(grep "waiting for CloudFormation stack" "$status_file")
+            if [[ ! -z $grep_result ]]; then
+                echo "Waiting for CloudFormation stack..."
+                sleep 20
+            fi
+            local ready_result=$(grep "EKS cluster \"Three-Tier-K8s-EKS-Cluster\" in \"us-east-2\" region is ready" "$status_file")
+            if [[ ! -z $ready_result ]]; then
+                echo "EKS cluster is ready"
+                rm "$status_file"
+                exit 0
+            fi
+            local error_result=$(grep "\[✖\]" "$status_file")
+            if [[ ! -z $error_result ]]; then
+                echo "Error encountered: $error_result"
+                echo "Cluster Creation was not completed due to unexpected Error"
+                rm "$status_file"
+                exit 1
+            fi
+        fi
+        sleep 5
+    done
 
-#             # Example: Check if an error occurred
-#             if grep -q "\[✖\]" "$status_file"; then
-#                 echo "Error encountered during cluster creation. Exiting..."
-#                 rm "$status_file"
-#                 exit 1
-#             fi
-#         else
-#             break
-#         fi
-#         sleep 5
-#     done
-
-#     echo "Cluster creation did not complete within the timeout period."
-#     rm "$status_file"
-#     exit 1
-# }
+    echo "Cluster Creation was not completed due to timeout"
+    rm "$status_file"
+    exit 1
+}
 
 if check_cluster_exists; then
     echo "Moving to Step 3: Update kubeconfig"
-    break
+    # Move to Step 3
+    aws eks update-kubeconfig --region us-east-2 --name Three-Tier-K8s-EKS-Cluster
+    echo "Step 3 completed"
 else
     create_cluster
-    # echo "Checking status after EKS cluster creation"
-    # # Check status
-    # check_status
+    echo "Checking status after EKS cluster creation"
+    # Check status
+    check_status
 fi
-
-# Step 3:  Update kubeconfig
-echo "Update kubeconfig"
-aws eks update-kubeconfig --region us-east-2 --name Three-Tier-K8s-EKS-Cluster
 
 # Step 4: Download Load Balancer policy
 echo "Download Load Balancer policy"
@@ -140,24 +139,12 @@ else
     helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=my-cluster --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller || handle_error "Failed to install AWS Load Balancer Controller: Installation failed or name already in use."
 fi
 
-# Wait for AWS Load Balancer Controller pods to be ready
-echo "Waiting for AWS Load Balancer Controller pods to be ready..."
-for (( y=0 ; y < 30 ; y++ )); do
-    lb_controller_pods=$(kubectl get pods -n kube-system -l app.kubernetes.io/name=aws-load-balancer-controller --field-selector=status.phase=Running 2>/dev/null | grep -c "aws-load-balancer-controller")
-    if [ "$lb_controller_pods" -eq 1 ]; then
-        echo "AWS Load Balancer Controller pods are ready."
-        break
-    else
-        sleep 30
-        echo "y:" $y
-    fi
-done
-
-if [ "$lb_controller_pods" -ne 1 ]; then
-    handle_error "AWS Load Balancer Controller pods are not ready within the specified timeout."
-fi
-
-
+# Step 9: Create Amazon ECR Private Repositories
+echo "Create Amazon ECR Private Repositories"
+# Frontend repository
+aws ecr describe-repositories --repository-names frontend --region us-east-2 &>/dev/null || aws ecr create-repository --repository-name frontend --region us-east-2 || handle_error "Failed to create frontend ECR repository."
+# Backend repository
+aws ecr describe-repositories --repository-names backend --region us-east-2 &>/dev/null || aws ecr create-repository --repository-name backend --region us-east-2 || handle_error "Failed to create backend ECR repository."
 
 echo "Amazon ECR private repositories created successfully."
 
@@ -169,38 +156,21 @@ fi
 
 # Step 11: Create namespaces
 echo "Creating namespaces..."
-#kubectl create namespace three-tier || handle_error "Failed to
-kubectl create namespace three-tier || handle_error "Failed to create three-tier namespace."
-kubectl create namespace argocd || handle_error "Failed to create argocd namespace."
+kubectl create namespace three-tier || handle_error "Failed to create namespace three-tier."
+kubectl create namespace argocd || handle_error "Failed to create namespace argocd."
 
-# Step 15: Set ArgoCD server hostname and admin password
-echo "Setting ArgoCD server hostname and admin password..."
+# Step 12: Create ECR secret
+echo "Creating ECR secret..."
+kubectl create secret generic ecr-registry-secret \
+  --from-file=.dockerconfigjson=${HOME}/.docker/config.json \
+  --type=kubernetes.io/dockerconfigjson --namespace three-tier || handle_error "Failed to create ECR secret."
 
-# Function to set ArgoCD server hostname
-set_argocd_server() {
-    ARGOCD_SERVER=$(kubectl get svc argocd-server -n argocd -o json | jq -r '.status.loadBalancer.ingress[0].hostname')
-    if [ -z "$ARGOCD_SERVER" ]; then
-        handle_error "Failed to retrieve ArgoCD server hostname."
-    fi
-}
+# Step 13: Deploy ArgoCD
+echo "Deploying ArgoCD..."
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml || handle_error "Failed to deploy ArgoCD."
 
-# Function to set ArgoCD admin password
-set_argocd_password() {
-    ARGO_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-    if [ -z "$ARGO_PWD" ]; then
-        handle_error "Failed to retrieve ArgoCD admin password."
-    fi
-}
+# Step 14: Patch ArgoCD service
+echo "Patching ArgoCD service..."
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}' || handle_error "Failed to patch ArgoCD service."
 
-# Set ArgoCD server hostname
-set_argocd_server
-
-# Set ArgoCD admin password
-set_argocd_password
-
-echo "ArgoCD server hostname: $ARGOCD_SERVER"
-echo "ArgoCD admin password: $ARGO_PWD"
-
-# End of script
 echo "Script execution completed."
-
