@@ -215,6 +215,8 @@ export ARGO_PWD=$(get_argocd_password)
 
 # Print ArgoCD password
 echo "ArgoCD Server: $ARGOCD_SERVER"
+echo "ArgoCD UserName: admin"
 echo "ArgoCD Password: $ARGO_PWD"
 
 # You can now use $ARGOCD_SERVER and $ARGO_PWD variables in your script as needed
+echo "Sript Execution Completed!"
