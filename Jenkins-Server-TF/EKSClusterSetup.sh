@@ -197,4 +197,24 @@ fi
 echo "Patching ArgoCD service..."
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}' || handle_error "Failed to patch ArgoCD service."
 
-echo "Script execution completed."
+echo "ArgoCD Patch Update Successfull."
+
+# Function to get ArgoCD server hostname
+get_argocd_hostname() {
+    kubectl get svc argocd-server -n argocd -o json | jq -r '.status.loadBalancer.ingress[0].hostname'
+}
+
+# Function to get ArgoCD initial admin password
+get_argocd_password() {
+    kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+}
+
+# Export ArgoCD server hostname and password
+export ARGOCD_SERVER=$(get_argocd_hostname)
+export ARGO_PWD=$(get_argocd_password)
+
+# Print ArgoCD password
+echo "ArgoCD Server: $ARGOCD_SERVER"
+echo "ArgoCD Password: $ARGO_PWD"
+
+# You can now use $ARGOCD_SERVER and $ARGO_PWD variables in your script as needed
