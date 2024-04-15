@@ -178,12 +178,19 @@ fi
 
 # Step 13: Deploy ArgoCD
 echo "Deploying ArgoCD..."
-if kubectl get deployment -n argocd argocd-server &> /dev/null; then
-    echo "ArgoCD is already installed."
+if kubectl get svc -n kube-system aws-load-balancer-webhook-service &> /dev/null; then
+    echo "AWS Load Balancer webhook service exists. Proceeding with ArgoCD deployment..."
+    if kubectl get deployment -n argocd argocd-server &> /dev/null; then
+        echo "ArgoCD is already installed."
+    else
+        # Deploy ArgoCD
+        kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml || handle_error "Failed to deploy ArgoCD: Could not reach webhook service."
+    fi
 else
-    # Deploy ArgoCD
-    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml || handle_error "Failed to deploy ArgoCD: Could not reach webhook service."
+    echo "AWS Load Balancer webhook service does not exist. ArgoCD deployment cannot proceed."
+    handle_error "AWS Load Balancer webhook service does not exist."
 fi
+
 
 
 # Step 14: Patch ArgoCD service
