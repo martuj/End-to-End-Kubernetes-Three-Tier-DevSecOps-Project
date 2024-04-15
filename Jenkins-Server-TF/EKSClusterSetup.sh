@@ -156,8 +156,17 @@ fi
 
 # Step 11: Create namespaces
 echo "Creating namespaces..."
-kubectl create namespace three-tier || handle_error "Failed to create namespace three-tier."
-kubectl create namespace argocd || handle_error "Failed to create namespace argocd."
+if kubectl get namespace three-tier &> /dev/null; then
+    echo "Namespace three-tier already exists."
+else
+    kubectl create namespace three-tier || handle_error "Failed to create namespace three-tier."
+fi
+
+if kubectl get namespace argocd &> /dev/null; then
+    echo "Namespace argocd already exists."
+else
+    kubectl create namespace argocd || handle_error "Failed to create namespace argocd."
+fi
 
 # Step 12: Create ECR secret
 echo "Creating ECR secret..."
