@@ -47,7 +47,7 @@ cd End-to-End-Kubernetes-Three-Tier-DevSecOps-Project && cd TerraformSetup
 chmod +x TerraformSetup.sh
 ```
 ```
-./Terraform.sh
+./TerraformSetup.sh
 ```
 ```
 aws configure
