@@ -341,15 +341,7 @@ Note: Do the changes in the Pipeline according to your project.
 
 ## Setup 10: Set up the Monitoring for our EKS Cluster. 
 
-We will achieve the monitoring using Helm
-Add the prometheus repo by using the below command
-
-helm repo add stable https://charts.helm.sh/stable
-
-Install the prometheus
-
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm install prometheus prometheus-community/prometheus
+Prometheus and Grafana have already been installed by the Shell Script that we executed.
 
 Now, check the service by the below command
 
