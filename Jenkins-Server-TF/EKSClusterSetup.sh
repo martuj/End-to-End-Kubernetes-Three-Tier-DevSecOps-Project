@@ -52,13 +52,13 @@ create_cluster() {
     echo "EKS cluster creation command completed"
 }
 
-# Function to check status
-check_status() {
-    local timeout=1800  # Timeout in seconds (30 minutes)
-    local start_time=$(date +%s)
-    local status_file="status.txt"
+# # Function to check status
+# check_status() {
+#     local timeout=1800  # Timeout in seconds (30 minutes)
+#     local start_time=$(date +%s)
+#     local status_file="status.txt"
 
-    touch "$status_file" || handle_error "Failed to create status.txt file."
+#     touch "$status_file" || handle_error "Failed to create status.txt file."
 
     # while [ $(( $(date +%s) - $start_time )) -lt $timeout ]; do
     #     echo "Checking status..."
@@ -87,10 +87,10 @@ check_status() {
     #     sleep 5
     # done
 
-    echo "Cluster Creation was not completed due to timeout"
-    rm "$status_file"
-    exit 1
-}
+#     echo "Cluster Creation was not completed due to timeout"
+#     rm "$status_file"
+#     exit 1
+# }
 
 if check_cluster_exists; then
     echo "Moving to Step 3: Update kubeconfig"
