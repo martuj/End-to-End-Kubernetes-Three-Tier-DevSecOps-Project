@@ -60,32 +60,32 @@ check_status() {
 
     touch "$status_file" || handle_error "Failed to create status.txt file."
 
-    while [ $(( $(date +%s) - $start_time )) -lt $timeout ]; do
-        echo "Checking status..."
-        if [ -f "$status_file" ]; then
-            local last_line=$(tail -n 1 "$status_file")
-            echo "Last line of status.txt: $last_line"
-            local grep_result=$(grep "waiting for CloudFormation stack" "$status_file")
-            if [[ ! -z $grep_result ]]; then
-                echo "Waiting for CloudFormation stack..."
-                sleep 20
-            fi
-            local ready_result=$(grep "EKS cluster \"Three-Tier-K8s-EKS-Cluster\" in \"us-east-2\" region is ready" "$status_file")
-            if [[ ! -z $ready_result ]]; then
-                echo "EKS cluster is ready"
-                rm "$status_file"
-                exit 0
-            fi
-            local error_result=$(grep "\[✖\]" "$status_file")
-            if [[ ! -z $error_result ]]; then
-                echo "Error encountered: $error_result"
-                echo "Cluster Creation was not completed due to unexpected Error"
-                rm "$status_file"
-                exit 1
-            fi
-        fi
-        sleep 5
-    done
+    # while [ $(( $(date +%s) - $start_time )) -lt $timeout ]; do
+    #     echo "Checking status..."
+    #     if [ -f "$status_file" ]; then
+    #         local last_line=$(tail -n 1 "$status_file")
+    #         echo "Last line of status.txt: $last_line"
+    #         local grep_result=$(grep "waiting for CloudFormation stack" "$status_file")
+    #         if [[ ! -z $grep_result ]]; then
+    #             echo "Waiting for CloudFormation stack..."
+    #             sleep 20
+    #         fi
+    #         local ready_result=$(grep "EKS cluster \"Three-Tier-K8s-EKS-Cluster\" in \"us-east-2\" region is ready" "$status_file")
+    #         if [[ ! -z $ready_result ]]; then
+    #             echo "EKS cluster is ready"
+    #             rm "$status_file"
+    #             exit 0
+    #         fi
+    #         local error_result=$(grep "\[✖\]" "$status_file")
+    #         if [[ ! -z $error_result ]]; then
+    #             echo "Error encountered: $error_result"
+    #             echo "Cluster Creation was not completed due to unexpected Error"
+    #             rm "$status_file"
+    #             exit 1
+    #         fi
+    #     fi
+    #     sleep 5
+    # done
 
     echo "Cluster Creation was not completed due to timeout"
     rm "$status_file"
@@ -170,9 +170,13 @@ fi
 
 # Step 12: Create ECR secret
 echo "Creating ECR secret..."
-kubectl create secret generic ecr-registry-secret \
-  --from-file=.dockerconfigjson=${HOME}/.docker/config.json \
-  --type=kubernetes.io/dockerconfigjson --namespace three-tier || handle_error "Failed to create ECR secret."
+if kubectl get secret ecr-registry-secret -n three-tier &> /dev/null; then
+    echo "Secret ecr-registry-secret already exists."
+else
+    kubectl create secret generic ecr-registry-secret \
+      --from-file=.dockerconfigjson=${HOME}/.docker/config.json \
+      --type=kubernetes.io/dockerconfigjson --namespace three-tier || handle_error "Failed to create ECR secret."
+fi
 
 # Step 13: Deploy ArgoCD
 echo "Deploying ArgoCD..."
