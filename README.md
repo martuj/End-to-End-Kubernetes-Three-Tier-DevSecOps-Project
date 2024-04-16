@@ -154,6 +154,8 @@ trivy --version
 ```
 eksctl version
 ```
+If the above tools are not installed, create a file and paste the installation script from `Jenkins-Server-TF/tools-install.sh` and execute
+
 Now, configure the AWS.
 ```
 aws configure
