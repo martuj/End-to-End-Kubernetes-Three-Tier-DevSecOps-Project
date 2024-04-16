@@ -52,46 +52,6 @@ create_cluster() {
     echo "EKS cluster creation command completed"
 }
 
-# # Function to check status
-# check_status() {
-#     local timeout=1800  # Timeout in seconds (30 minutes)
-#     local start_time=$(date +%s)
-#     local status_file="status.txt"
-
-#     touch "$status_file" || handle_error "Failed to create status.txt file."
-
-    # while [ $(( $(date +%s) - $start_time )) -lt $timeout ]; do
-    #     echo "Checking status..."
-    #     if [ -f "$status_file" ]; then
-    #         local last_line=$(tail -n 1 "$status_file")
-    #         echo "Last line of status.txt: $last_line"
-    #         local grep_result=$(grep "waiting for CloudFormation stack" "$status_file")
-    #         if [[ ! -z $grep_result ]]; then
-    #             echo "Waiting for CloudFormation stack..."
-    #             sleep 20
-    #         fi
-    #         local ready_result=$(grep "EKS cluster \"Three-Tier-K8s-EKS-Cluster\" in \"us-east-2\" region is ready" "$status_file")
-    #         if [[ ! -z $ready_result ]]; then
-    #             echo "EKS cluster is ready"
-    #             rm "$status_file"
-    #             exit 0
-    #         fi
-    #         local error_result=$(grep "\[✖\]" "$status_file")
-    #         if [[ ! -z $error_result ]]; then
-    #             echo "Error encountered: $error_result"
-    #             echo "Cluster Creation was not completed due to unexpected Error"
-    #             rm "$status_file"
-    #             exit 1
-    #         fi
-    #     fi
-    #     sleep 5
-    # done
-
-#     echo "Cluster Creation was not completed due to timeout"
-#     rm "$status_file"
-#     exit 1
-# }
-
 if check_cluster_exists; then
     echo "Moving to Step 3: Update kubeconfig"
     # Move to Step 3
@@ -183,6 +143,10 @@ if kubectl get svc -n kube-system aws-load-balancer-webhook-service &> /dev/null
     if kubectl get deployment -n argocd argocd-server &> /dev/null; then
         echo "ArgoCD is already installed."
     else
+        # Wait for the service to become available
+        echo "Waiting for AWS Load Balancer webhook service to become available..."
+        kubectl wait --for=condition=available --timeout=300s deployment/aws-load-balancer-controller -n kube-system || handle_error "Timed out waiting for AWS Load Balancer webhook service to become available."
+        
         # Deploy ArgoCD
         kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml || handle_error "Failed to deploy ArgoCD: Could not reach webhook service."
     fi
@@ -192,10 +156,25 @@ else
 fi
 
 
-
 # Step 14: Patch ArgoCD service
 echo "Patching ArgoCD service..."
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}' || handle_error "Failed to patch ArgoCD service."
+if kubectl get deployment -n argocd argocd-server &> /dev/null; then
+    echo "ArgoCD server deployment found. Proceeding with patching..."
+    # Wait for the service to be created
+    sleep 10
+    # Check for the existence of the service
+    if kubectl get svc -n argocd argocd-server &> /dev/null; then
+        echo "ArgoCD server service found."
+        # Patch the service
+        kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}' || handle_error "Failed to patch ArgoCD service."
+        echo "ArgoCD Patch Update Successful."
+    else
+        echo "ArgoCD server service not found. Service might not have been created yet."
+    fi
+else
+    echo "ArgoCD server deployment not found. Skipping service patching."
+fi
+
 
 echo "ArgoCD Patch Update Successful."
 
@@ -207,6 +186,23 @@ get_argocd_hostname() {
 # Function to get ArgoCD initial admin password
 get_argocd_password() {
     kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+}
+
+# Function to get ArgoCD server hostname
+get_argocd_hostname() {
+    local timeout=300  # Timeout in seconds (5 minutes)
+    local start_time=$(date +%s)
+
+    while [ $(( $(date +%s) - $start_time )) -lt $timeout ]; do
+        local hostname=$(kubectl get svc argocd-server -n argocd -o jsonpath="{.status.loadBalancer.ingress[0].hostname}" 2>/dev/null)
+        if [ -n "$hostname" ]; then
+            echo "$hostname"
+            return 0
+        fi
+        sleep 10
+    done
+    echo "Timed out waiting for ArgoCD server service to become available."
+    return 1
 }
 
 # Export ArgoCD server hostname and password
