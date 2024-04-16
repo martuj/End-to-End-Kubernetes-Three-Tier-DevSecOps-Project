@@ -187,8 +187,9 @@ Set AWS credentials on Jenkins
 * Kind:  `AWS Credentials`
 * Scope: Global
 * ID: `aws-key`
-* Access Key: <Your-access-Key>
-* Secret Access key: <Your-secret-access-key> and click on Create.
+* Access Key: (Your-access-Key)
+* Secret Access key: (Your-secret-access-key)
+* Click on Create.
 
 Set GitHub credentials on Jenkins
 In Industry Projects your repository will always be private. So, add the username and personal access token of your GitHub account.
@@ -200,7 +201,12 @@ In Industry Projects your repository will always be private. So, add the usernam
 * Description: `github`
 * Click on Create.
 
+
+
 Setup EKS Cluster, Load Balancer on our EKS, ECR Private Repositories and ArgoCD
+
+Go back to the Jnekins CLI.
+
 A file called `EKSClusterSetup.sh` is already present at  the current location /home/ubuntu. This file needs to be executed to Setup EKS Cluster, Load Balancer on the EKS, ECR Private Repositories and ArgoCD
 ```
 chmod +x EKSClusterSetup.sh
