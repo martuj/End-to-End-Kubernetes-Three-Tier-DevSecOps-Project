@@ -152,7 +152,7 @@ aws --version
 trivy --version
 ```
 ```
-eksctl --version
+eksctl version
 ```
 Now, we have to configure Jenkins. So, copy the public IP of your Jenkins Server and paste it on your favorite browser with an 8080 port.
 * Click on `Install suggested plugins`
