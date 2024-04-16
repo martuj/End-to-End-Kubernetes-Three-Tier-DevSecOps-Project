@@ -263,7 +263,7 @@ Now, we have to store the sonar credentials.
 Add Github Credentilas
 * Kind:  `Secret Text`
 * Scope: `Global`
-* Secret: <Your-Github-token>
+* Secret: (Your-Github-token)
 * ID: `github`
 * Description: `github`
 * Click on Create.
