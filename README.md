@@ -329,7 +329,7 @@ Now, we have to set the path for Sonarqube in Jenkins
 * Go to Dashboard -> Manage Jenkins -> System
 
 Search for SonarQube installations
-* Provide the name as `sonar-server`, then in the Server URL copy the sonarqube public IP (same as Jenkins) with port 9000 (http://<jenkins-ip>:9000/)select the sonar token that we have added recently, and click on Apply & Save.
+* Provide the name as `sonar-server`, then in the Server URL copy the sonarqube public IP (same as Jenkins) with port 9000 (http://(Jenkins-ip>:9000/)select the sonar token that we have added recently, and click on Apply & Save.
 
 Now, we are ready to create our Jenkins Pipeline to deploy our Backend Code.
 * Go to Jenkins Dashboard
