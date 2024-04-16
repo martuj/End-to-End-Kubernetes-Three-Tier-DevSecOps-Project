@@ -154,6 +154,10 @@ trivy --version
 ```
 eksctl version
 ```
+Now, configure the AWS.
+```
+aws configure
+```
 Execute the below command to retrieve the Jenkins password
 ```
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
