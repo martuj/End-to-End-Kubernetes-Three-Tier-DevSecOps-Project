@@ -197,8 +197,8 @@ In Industry Projects your repository will always be private. So, add the usernam
 * Scope: `Global`
 * Username: <Your-Github-Username>
 * Password: <Your-Github-token>
-* ID: `github`
-* Description: `github`
+* ID: `GITHUB`
+* Description: `GITHUB`
 * Click on Create.
 
 ### Setup EKS Cluster, Load Balancer on our EKS, ECR Private Repositories and ArgoCD
@@ -260,6 +260,15 @@ Now, we have to store the sonar credentials.
 * Add `sonar-token` in  `ID` and `Description`.
 * Click on Create
 
+Add Github Credentilas
+* Kind:  `Secret Text`
+* Scope: `Global`
+* Secret: <Your-Github-token>
+* ID: `github`
+* Description: `github`
+* Click on Create.
+
+  
 ## Step 9: Storing the ECR Credentials on Jenkins 
 
 Now, according to our Pipeline, we need to add an Account ID in the Jenkins credentials because of the ECR repo URI.
