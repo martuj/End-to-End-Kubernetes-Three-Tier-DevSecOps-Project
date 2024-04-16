@@ -485,19 +485,9 @@ While your frontend Application is starting to deploy, We will create an applica
 
 Once your Ingress application is deployed. It will create an Application Load Balancer. You can check out the load balancer named with k8s-three.
 
-Now, Copy the ALB-DNS and paste it on your browser. Refresh after 2 to 3 minutes in your browser to see the magic.
+Now, Copy the ALB-DNS and paste it on your browser. Refresh after 2 to 3 minutes in your browser to see the magic. You can play with the application by adding and deleting the records.
 
-You can play with the application by adding the records.
-
-You can play with the application by deleting the records.
-
-Now, you can see your Grafana Dashboard to view the EKS data such as pods, namespace, deployments, etc.
-
-If you want to monitor the three-tier namespace.
-
-In the namespace, replace three-tier with another namespace.
-
-You will see the deployments that are done by ArgoCD
+Now, you can see your Grafana Dashboard to view the EKS data such as pods, namespace, deployments, etc. If you want to monitor the three-tier namespace,  in the namespace, replace three-tier with another namespace.
 
 If you observe, we have configured the Persistent Volume & Persistent Volume Claim. So, if the pods get deleted then, the data won’t be lost. The Data will be stored on the host machine.
 
