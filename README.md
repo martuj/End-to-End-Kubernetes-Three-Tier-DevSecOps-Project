@@ -173,14 +173,14 @@ Now, we have to configure Jenkins. So, copy the public IP of your Jenkins Server
 * Password : `The password retrieved above`
 
 ## Step 5: Deploy the EKS Cluster.
-Configure the AWS.
+### Configure the AWS.
 * Go to Manage Jenkins
 * Click on Plugins
 * Select the Available plugins , Search and select `AWS Credentials` and `Pipeline: AWS Steps` and click on Install. 
 * Once, both the plugins are installed, restart your Jenkins service by checking the Restart Jenkins option.
 * Login to your Jenkins Server Again
 
-Set AWS credentials on Jenkins
+### Set AWS credentials on Jenkins
 * Go to Manage Plugins and click on Credentials
 * Click on global.
 * Click on `Add Credentials`
@@ -191,7 +191,7 @@ Set AWS credentials on Jenkins
 * Secret Access key: (Your-secret-access-key)
 * Click on Create.
 
-Set GitHub credentials on Jenkins
+### Set GitHub credentials on Jenkins
 In Industry Projects your repository will always be private. So, add the username and personal access token of your GitHub account.
 * Kind:  `Username with password`
 * Scope: `Global`
@@ -201,11 +201,9 @@ In Industry Projects your repository will always be private. So, add the usernam
 * Description: `github`
 * Click on Create.
 
+### Setup EKS Cluster, Load Balancer on our EKS, ECR Private Repositories and ArgoCD
 
-
-Setup EKS Cluster, Load Balancer on our EKS, ECR Private Repositories and ArgoCD
-
-Go back to the Jnekins CLI.
+Go back to the Jenkins CLI.
 
 A file called `EKSClusterSetup.sh` is already present at  the current location /home/ubuntu. This file needs to be executed to Setup EKS Cluster, Load Balancer on the EKS, ECR Private Repositories and ArgoCD
 ```
