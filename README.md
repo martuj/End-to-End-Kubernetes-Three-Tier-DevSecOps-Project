@@ -367,7 +367,7 @@ Note: Do the changes in the Pipeline according to your project.
 
 Prometheus and Grafana have already been installed by the Shell Script was executed.
 
-Now, check the service by the below command
+Now move back to the Jenkins Server CLI, and check the service by the below command
 ```
 kubectl get svc
 ```
