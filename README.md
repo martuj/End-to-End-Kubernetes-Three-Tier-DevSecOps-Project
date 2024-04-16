@@ -401,7 +401,7 @@ Now, access your Grafana Dashboard
 * The username will be `admin` and the password will be `prom-operator` for your Grafana LogIn.
 * Now, click on `Add you first Data Source`.
 * Select Prometheus
-* In the Connection, paste your <Prometheus-LB-DNS>:9090.
+* In the Connection, paste your (Prometheus-LB-DNS):9090.
 * Click on Save & test.
 * If the URL is correct, then you will see a green notification
 
