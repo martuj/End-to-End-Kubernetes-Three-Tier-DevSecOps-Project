@@ -443,6 +443,7 @@ Now, we will create our first application which will be a database.
 * `Revision` : `HEAD`
 * `Path` : `Kubernetes-Manifests-file/Database` (In the Path, provide the location where your Manifest files are presented and provide other things as shown in the below screenshot.)
 * `Cluster URL` : `https://kubernetes.default.svc`
+* `Namespace`: `three-tier`
 * Click on CREATE.
 
 While your database Application is starting to deploy, We will create an application for the backend.
