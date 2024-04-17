@@ -1,8 +1,8 @@
 resource "aws_s3_bucket" "example" {
-  bucket = "mehar-devsecops-bucket"
+  bucket = "devsecops-bucket"
 
   tags = {
-    Name    = "mehar-devsecops-bucket"
+    Name    = "devsecops-bucket"
     Project = "DevSecOps Project"
   }
 }
