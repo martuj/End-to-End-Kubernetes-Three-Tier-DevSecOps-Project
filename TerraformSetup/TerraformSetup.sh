@@ -25,6 +25,10 @@ echo "Installing AWS CLI..."
 sudo apt-get install python3-pip -y
 sudo pip3 install awscli
 
+# Restart required services
+echo "Restarting polkit.service..."
+sudo systemctl restart polkit.service
+
 # Start an interactive bash session
 echo "Starting interactive bash session..."
 bash
