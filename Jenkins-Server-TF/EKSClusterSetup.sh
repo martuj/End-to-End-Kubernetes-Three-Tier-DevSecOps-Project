@@ -145,7 +145,15 @@ if kubectl get svc -n kube-system aws-load-balancer-webhook-service &> /dev/null
     else
         # Wait for the service to become available
         echo "Waiting for AWS Load Balancer webhook service to become available..."
-        kubectl wait --for=condition=available --timeout=300s deployment/aws-load-balancer-controller -n kube-system || handle_error "Timed out waiting for AWS Load Balancer webhook service to become available."
+        for ((i=0; i<20; i++)); do
+            if kubectl get deployment/aws-load-balancer-controller -n kube-system &> /dev/null; then
+                echo "AWS Load Balancer webhook service is available."
+                break
+            else
+                echo "$i: AWS Load Balancer webhook service is not yet available. Retrying in 30 seconds..."
+                sleep 30
+            fi
+        done
         
         # Deploy ArgoCD
         kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml || handle_error "Failed to deploy ArgoCD: Could not reach webhook service."
