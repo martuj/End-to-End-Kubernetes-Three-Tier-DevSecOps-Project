@@ -33,7 +33,7 @@ trap 'cleanup' INT
 # Function to check if the EKS cluster exists
 check_cluster_exists() {
     echo "Checking if the EKS cluster exists..."
-    if eksctl get cluster --name Three-Tier-K8s-EKS-Cluster --region us-east-2 &> /dev/null; then
+    if eksctl get cluster --name Three-Tier-K8s-EKS-Cluster --region us-west-1 &> /dev/null; then
         echo "EKS cluster already exists"
         return 0
     else
@@ -45,7 +45,7 @@ check_cluster_exists() {
 # Function to create the EKS cluster
 create_cluster() {
     echo "Creating EKS cluster..."
-    if ! eksctl create cluster --name Three-Tier-K8s-EKS-Cluster --region us-east-2 --node-type t2.medium --nodes-min 2 --nodes-max 2; then
+    if ! eksctl create cluster --name Three-Tier-K8s-EKS-Cluster --region us-west-1 --node-type t2.medium --nodes-min 2 --nodes-max 2; then
         echo "EKS cluster creation failed, exiting..."
         exit 1
     fi
@@ -55,7 +55,7 @@ create_cluster() {
 if check_cluster_exists; then
     echo "Moving to Step 3: Update kubeconfig"
     # Move to Step 3
-    aws eks update-kubeconfig --region us-east-2 --name Three-Tier-K8s-EKS-Cluster
+    aws eks update-kubeconfig --region us-west-1 --name Three-Tier-K8s-EKS-Cluster
     echo "Step 3 completed"
 else
     create_cluster
@@ -77,12 +77,12 @@ fi
 
 # Step 6: Create OIDC Provider
 echo "Create OIDC Provider"
-eksctl utils associate-iam-oidc-provider --region=us-east-2 --cluster=Three-Tier-K8s-EKS-Cluster --approve || handle_error "Failed to associate OIDC provider."
+eksctl utils associate-iam-oidc-provider --region=us-west-1 --cluster=Three-Tier-K8s-EKS-Cluster --approve || handle_error "Failed to associate OIDC provider."
 
 # Step 7: Create Service Account
 echo "Create Service Account"
 # Replace <your_account_id> with your actual account ID
-eksctl create iamserviceaccount --cluster=Three-Tier-K8s-EKS-Cluster --namespace=kube-system --name=aws-load-balancer-controller --role-name AmazonEKSLoadBalancerControllerRole --attach-policy-arn=arn:aws:iam::375728455575:policy/AWSLoadBalancerControllerIAMPolicy --approve --region=us-east-2 || handle_error "Failed to create service account."
+eksctl create iamserviceaccount --cluster=Three-Tier-K8s-EKS-Cluster --namespace=kube-system --name=aws-load-balancer-controller --role-name AmazonEKSLoadBalancerControllerRole --attach-policy-arn=arn:aws:iam::375728455575:policy/AWSLoadBalancerControllerIAMPolicy --approve --region=us-west-1 || handle_error "Failed to create service account."
 
 # Step 8: Check if AWS Load Balancer Controller is already installed
 echo "Checking if AWS Load Balancer Controller is already installed..."
@@ -100,15 +100,15 @@ fi
 # Step 9: Create Amazon ECR Private Repositories
 echo "Create Amazon ECR Private Repositories"
 # Frontend repository
-aws ecr describe-repositories --repository-names frontend --region us-east-2 &>/dev/null || aws ecr create-repository --repository-name frontend --region us-east-2 || handle_error "Failed to create frontend ECR repository."
+aws ecr describe-repositories --repository-names frontend --region us-west-1 &>/dev/null || aws ecr create-repository --repository-name frontend --region us-west-1 || handle_error "Failed to create frontend ECR repository."
 # Backend repository
-aws ecr describe-repositories --repository-names backend --region us-east-2 &>/dev/null || aws ecr create-repository --repository-name backend --region us-east-2 || handle_error "Failed to create backend ECR repository."
+aws ecr describe-repositories --repository-names backend --region us-west-1 &>/dev/null || aws ecr create-repository --repository-name backend --region us-west-1 || handle_error "Failed to create backend ECR repository."
 
 echo "Amazon ECR private repositories created successfully."
 
 # Step 10: Configure ECR Locally
 echo "Configuring ECR Locally"
-if ! aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 375728455575.dkr.ecr.us-east-2.amazonaws.com; then
+if ! aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 375728455575.dkr.ecr.us-west-1.amazonaws.com; then
     handle_error "Failed to login to ECR."
 fi
 
