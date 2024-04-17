@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: 
+    - host: backend.devopstraining.in.net
       http:
         paths:
           - path: /api
