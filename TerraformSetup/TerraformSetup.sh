@@ -27,7 +27,7 @@ sudo pip3 install awscli
 
 # Restart required services
 echo "Restarting polkit.service..."
-sudo systemctl restart polkit.service </dev/null
+yes | sudo systemctl restart polkit.service
 
 # Start an interactive bash session
 echo "Starting interactive bash session..."
