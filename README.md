@@ -509,13 +509,13 @@ In this comprehensive DevSecOps Kubernetes project, we successfully:
 # Cleanup
 Execute the below commands on your Jenkins Server
 ```
-eksctl delete cluster --name Three-Tier-K8s-EKS-Cluster --region us-east-2
+eksctl delete cluster --name Three-Tier-K8s-EKS-Cluster --region us-west-1
 ```
 ```
-aws ecr delete-repository --repository-name backend --force --region us-east-2
+aws ecr delete-repository --repository-name backend --force --region us-west-1
 ```
 ```
-aws ecr delete-repository --repository-name frontend --force --region us-east-2
+aws ecr delete-repository --repository-name frontend --force --region us-west-1
 ```
 ```
 aws iam delete-policy --policy-arn arn:aws:iam::375728455575:policy/AWSLoadBalancerControllerIAMPolicy
