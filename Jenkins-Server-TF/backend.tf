@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "mehar-devsecops-bucket"
+    bucket         = "mehar-devsecops-bucket1"
     region         = "us-west-1"
     key            = "End-to-End-Kubernetes-Three-Tier-DevSecOps-Project/Jenkins-Server-TF/terraform.tfstate"
     dynamodb_table = "Mehar-DevSecOps-LockTable"
